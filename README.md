@@ -4,7 +4,9 @@ Deep learning project with the goal to make a model that can recognize the speci
 Data base on https://www.kaggle.com/datasets/vinayshanbhag/bird-song-data-set/data
 
 You need to use the codes in this architecture : 
+
 machine_learning/
+
 ├── test.py                         # Main Script
 
 ├── cuicui/                         # Folder with data and models
