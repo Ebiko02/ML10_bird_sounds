@@ -24,3 +24,7 @@ machine_learning/
 
 │       └── <bird_name>.jpg         
 
+
+To install all the requirements run in your terminal :
+
+pip install -r requirements.txt
