@@ -11,6 +11,12 @@ machine_learning/
 
 ├── cuicui/                         # Folder with data and models
 
+|   └── train.ipynb
+
+|   └── use.ipynb
+
+|   └── test.ipynb
+
 │   ├── modeles/                    # Folder to save models
 
 │   │   └── saved_model.keras       
