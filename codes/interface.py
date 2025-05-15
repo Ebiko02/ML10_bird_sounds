@@ -55,6 +55,9 @@ def browse_file():
             # Jouer le son de l'oiseau reconnu
             play_button.config(state = tk.NORMAL)
             play_button.config(command=play_audio)
+            # Jouer un son aléatoire de l'oiseau reconnu
+            random_sound_button.config(state = tk.NORMAL)
+            random_sound_button.config(command=lambda: play_random_audio(prediction))
 
         except Exception as e:
             messagebox.showerror("Erreur", f"Une erreur est survenue :\n{str(e)}")
@@ -91,11 +94,36 @@ def show_bird_image(bird_name):
         print(f"L'image {image_path} est introuvable.")
         image_label.config(image='', text="Image non trouvée")
 
+def play_random_audio(predicted_bird):
+    """
+    Listen to a random bird song of the predicted species.
 
-# Créer la fenêtre principale
+    Parameters:
+    predicted_bird (str): The predicted bird species.
+    df (pd.DataFrame): DataFrame containing metadata about bird songs.
+    """
+
+    global df
+
+    # Filter the DataFrame for the predicted bird species
+    filtered_df = df[df["name"] == predicted_bird]
+
+    try:
+        # Randomly select one song from the filtered DataFrame
+        random_song = filtered_df.sample(1).iloc[0]
+        random_file_path = f"cuicui/ouiseau/wavfiles/{random_song['filename']}"
+        print(f"Lecture du fichier audio : {random_file_path}")
+        threading.Thread(target=playsound, args=(random_file_path,), daemon=True).start()
+
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Impossible de lire un fichier audio :\n{str(e)}")
+    
+    
+
+# ==================================================Créer la fenêtre principale===============================
 root = tk.Tk()
 root.title("Reconnaissance d'oiseaux")
-root.geometry("500x600")
+root.geometry("500x500")
 
 title_label = tk.Label(root, text="Reconnaissance d'oiseaux par audio", font=("Arial", 14))
 title_label.pack(pady=10)
@@ -112,6 +140,8 @@ image_label.pack(pady=20)
 play_button = tk.Button(root, text="Jouer le son de l'oiseau", command=play_audio(), state=tk.DISABLED)
 play_button.pack(pady=10)
 
+random_sound_button = tk.Button(root, text="Jouer un son aléatoire de l'espèce détectée", state=tk.DISABLED)
+random_sound_button.pack(pady=10)
 
-
+# Lancer la boucle principale de l'interface
 root.mainloop()
