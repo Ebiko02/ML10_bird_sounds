@@ -54,6 +54,7 @@ def browse_file():
             show_bird_image(prediction)
             # Jouer le son de l'oiseau reconnu
             play_button.config(state = tk.NORMAL)
+            play_button.config(command=play_audio)
 
         except Exception as e:
             messagebox.showerror("Erreur", f"Une erreur est survenue :\n{str(e)}")
@@ -61,11 +62,14 @@ def browse_file():
 # Fonction pour jouer un fichier audio
 def play_audio():
     global selected_file
-    if selected_file: 
+    if selected_file:
+        print(f"Chemin du fichier audio : {selected_file}")  # Debugging
         try:
             threading.Thread(target=playsound, args=(selected_file,), daemon=True).start()
         except Exception as e:
             messagebox.showerror("Erreur", f"Impossible de lire le fichier audio :\n{str(e)}")
+    else:
+        print("Aucun fichier audio sélectionné.")
 
 def show_bird_image(bird_name):
     global current_image
