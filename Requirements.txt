@@ -1,0 +1,9 @@
+tkinter
+tensorflow
+librosa
+numpy
+pandas
+playsound
+pillow
+pygame
+threading
